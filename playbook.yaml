@@ -1,0 +1,8 @@
+---
+- hosts: all
+  become: true
+  roles:
+  - basic  
+  vars:
+    doc_root: /var/www/example
+

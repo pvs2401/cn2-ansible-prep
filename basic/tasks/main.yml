@@ -1,0 +1,47 @@
+---
+# tasks file for basic
+ - name: Update apt
+   apt: update_cache=yes
+
+ - name: Latest Kernel
+   apt: name=linux-image-unsigned-5.4.0-135-generic
+   register: kernelupdate
+
+ - name: Modify grub
+   shell: sed -i 's/GRUB_DEFAULT.*/GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 5.4.0-135-generic"/' /etc/default/grub
+   when: kernelupdate.changed
+
+ - name: Backup grub
+   shell: cp /etc/default/grub /etc/default/grub.bak
+   when: kernelupdate.changed
+
+ - name: Update grub
+   shell: update-grub
+   when: kernelupdate.changed
+
+ - name: Unconditionally reboot the machine with all defaults
+   ansible.builtin.reboot:
+   tags: [ reboot ]
+   when: kernelupdate.changed
+
+ - name: Kernel vesion2yy
+   debug: msg="Kernel verion is {{ ansible_kernel }}"
+   tags: [ kernelchk ]
+
+ - name: Set Hostname
+   ansible.builtin.hostname:
+     name: "{{ servers[inventory_hostname]['hostname'] }}"
+   tags: [ sethostname ]
+
+ - name: Configure eth1
+   ansible.builtin.template:
+     src: 01_net.yaml.j2
+     dest: /etc/netplan/01_net.yaml
+   notify: Restart network
+   tags: [ setnet ]
+
+ - name: Update /etc/hosts
+   ansible.builtin.template:
+     src: hosts.j2
+     dest: /etc/hosts
+   tags: [ sethost ]  

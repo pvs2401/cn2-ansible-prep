@@ -1,0 +1,6 @@
+---
+# handlers file for basic
+- name: Restart network
+  command: netplan apply
+  async: 45
+  poll: 0
