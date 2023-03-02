@@ -1,0 +1,31 @@
+# This file was pushed by Ansible
+# Template: templates/all/all/ntp_conf
+# Version 1.0
+# ===========================================================
+# Default restrictions
+restrict default limited kod nomodify notrap nopeer
+restrict -6 default ignore
+
+# Permit authorized systems
+restrict 66.129.255.75 nomodify notrap nopeer
+restrict 172.29.131.60 nomodify notrap nopeer
+restrict 172.29.135.60 nomodify notrap nopeer
+restrict 10.50.36.33 nomodify notrap nopeer
+restrict 10.50.36.34 nomodify notrap nopeer
+restrict 172.21.200.60 nomodify notrap nopeer
+restrict 10.215.194.50 nomodify notrap nopeer
+restrict 172.29.147.60 nomodify notrap nopeer
+restrict 172.29.151.60 nomodify notrap nopeer
+restrict 172.29.139.60 nomodify notrap nopeer
+restrict 172.29.143.60 nomodify notrap nopeer
+restrict 172.29.155.60 nomodify notrap nopeer
+
+# Permit authorized systems
+restrict 127.0.0.1
+restrict -6 ::1
+
+# Permit the actual access
+server ntpsvl.dtcsvl.juniper.net. iburst maxpoll 9
+server ntpqnc.dtcqnc.juniper.net. iburst maxpoll 9
+server ntpbng.dtcbng.juniper.net. iburst maxpoll 9
+server ntpemea.dtcemea.juniper.net. iburst maxpoll 9

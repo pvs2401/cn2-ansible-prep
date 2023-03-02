@@ -1,28 +1,38 @@
 ---
 # tasks file for basic
+ - name: Unconditionally reboot the machine with all defaults
+   ansible.builtin.reboot:
+   tags: [ donotrun ]
+   when: inventory_hostname != "deployer"
+
  - name: Update apt
    apt: update_cache=yes
+   tags: [ donotrun ]
 
  - name: Latest Kernel
    apt: name=linux-image-unsigned-5.4.0-135-generic
    register: kernelupdate
    when: inventory_hostname != "deployer"
+   tags: [ donotrun ]
 
  - name: Modify grub
    shell: sed -i 's/GRUB_DEFAULT.*/GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 5.4.0-135-generic"/' /etc/default/grub
    when: kernelupdate.changed and inventory_hostname != "deployer"
+   tags: [ donotrun ]
 
  - name: Backup grub
    shell: cp /etc/default/grub /etc/default/grub.bak
    when: kernelupdate.changed and inventory_hostname != "deployer"
+   tags: [ donotrun ]
 
  - name: Update grub
    shell: update-grub
    when: kernelupdate.changed and inventory_hostname != "deployer"
+   tags: [ donotrun ]
 
  - name: Unconditionally reboot the machine with all defaults
    ansible.builtin.reboot:
-   tags: [ reboot ]
+   tags: [ reboot, donotrun ]
    when: kernelupdate.changed and inventory_hostname != "deployer"
 
  - name: Kernel vesion2yy
@@ -46,3 +56,23 @@
      src: hosts.j2
      dest: /etc/hosts
    tags: [ sethost ]  
+
+ - name: Update /etc/resolv.conf
+   ansible.builtin.template:
+     src: resolv.conf.j2
+     dest: /etc/resolv.conf
+
+ - name: Install NTP
+   ansible.builtin.apt:
+     pkg:
+     - ntp
+     - ntpstat
+   tags: [ ntp ]  
+
+ - name: Configure NTP
+   ansible.builtin.template:
+     src: ntp.conf.j2
+     dest: /etc/ntp.conf
+   tags: [ ntp ]  
+   notify: Restart NTP
+

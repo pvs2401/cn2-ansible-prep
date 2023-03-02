@@ -7,31 +7,31 @@ servers:
     hostname: deployer
     ip: 172.16.254.10
     gw: 172.16.254.1
-  controller1:
-    hostname: controller1
+  n001controller1:
+    hostname: n001controller1
     ip: 172.16.0.10
     gw: 172.16.0.1
-  worker11:
-    hostname: worker11
+  n001worker11:
+    hostname: n001worker11
     ip: 172.16.1.10
     gw: 172.16.1.1
-  worker12:
-    hostname: worker12
+  n001worker12:
+    hostname: n001worker12
     ip: 172.16.2.10
     gw: 172.16.2.1
-  master2:
-    hostname: master2
+  n001master2:
+    hostname: n001master2
     ip: 172.16.10.10
     gw: 172.16.10.1
-  worker21:
-    hostname: worker21
+  n001worker21:
+    hostname: n001worker21
     ip: 172.16.11.10
     gw: 172.16.11.1
-  master3:
-    hostname: master3
+  n001master3:
+    hostname: n001master3
     ip: 172.16.20.10
     gw: 172.16.20.1
-  worker31:
-    hostname: worker31
+  n001worker31:
+    hostname: n001worker31
     ip: 172.16.21.10
     gw: 172.16.21.1
