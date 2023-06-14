@@ -3,7 +3,7 @@
  - name: Unconditionally reboot the machine with all defaults
    ansible.builtin.reboot:
    tags: [ donotrun ]
-   when: inventory_hostname != "deployer"
+   when: inventory_hostname != "server0"
 
  - name: Update apt
    apt: update_cache=yes
@@ -12,28 +12,28 @@
  - name: Latest Kernel
    apt: name=linux-image-unsigned-5.4.0-135-generic
    register: kernelupdate
-   when: inventory_hostname != "deployer"
+   when: inventory_hostname != "server0"
    tags: [ donotrun ]
 
  - name: Modify grub
    shell: sed -i 's/GRUB_DEFAULT.*/GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 5.4.0-135-generic"/' /etc/default/grub
-   when: kernelupdate.changed and inventory_hostname != "deployer"
+   when: kernelupdate.changed and inventory_hostname != "server0"
    tags: [ donotrun ]
 
  - name: Backup grub
    shell: cp /etc/default/grub /etc/default/grub.bak
-   when: kernelupdate.changed and inventory_hostname != "deployer"
+   when: kernelupdate.changed and inventory_hostname != "server0"
    tags: [ donotrun ]
 
  - name: Update grub
    shell: update-grub
-   when: kernelupdate.changed and inventory_hostname != "deployer"
+   when: kernelupdate.changed and inventory_hostname != "server0"
    tags: [ donotrun ]
 
  - name: Unconditionally reboot the machine with all defaults
    ansible.builtin.reboot:
    tags: [ reboot, donotrun ]
-   when: kernelupdate.changed and inventory_hostname != "deployer"
+   when: kernelupdate.changed and inventory_hostname != "server0"
 
  - name: Kernel vesion2yy
    debug: msg="Kernel verion is {{ ansible_kernel }}"

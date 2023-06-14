@@ -14,3 +14,5 @@ network:
         via: {{ servers[inventory_hostname]['gw'] }}
       - to: {{ prefix2 }}
         via: {{ servers[inventory_hostname]['gw'] }}
+      - to: {{ prefix3 }}
+        via: {{ servers[inventory_hostname]['gw'] }}

@@ -1,37 +1,42 @@
 ---
 # vars file for basic
 prefix1: 172.16.0.0/16
-prefix2: 128.221.0.0/16
+prefix2: 128.128.0.0/9
+prefix3: 10.0.0.0/28
 servers:
-  deployer:
+  server0:
     hostname: deployer
-    ip: 172.16.254.10
+    ip: 172.16.254.11
     gw: 172.16.254.1
-  n001controller1:
-    hostname: n001controller1
-    ip: 172.16.0.10
-    gw: 172.16.0.1
-  n001worker11:
-    hostname: n001worker11
-    ip: 172.16.1.10
-    gw: 172.16.1.1
-  n001worker12:
-    hostname: n001worker12
-    ip: 172.16.2.10
-    gw: 172.16.2.1
-  n001master2:
-    hostname: n001master2
-    ip: 172.16.10.10
+  server1:
+    hostname: centralmaster1
+    ip: 172.16.10.11
     gw: 172.16.10.1
-  n001worker21:
-    hostname: n001worker21
-    ip: 172.16.11.10
-    gw: 172.16.11.1
-  n001master3:
-    hostname: n001master3
-    ip: 172.16.20.10
+  server2:
+    hostname: centralnode1
+    ip: 172.16.10.12
+    gw: 172.16.1.1
+  server3:
+    hostname: worker1lmaster1
+    ip: 172.16.20.11
     gw: 172.16.20.1
-  n001worker31:
-    hostname: n001worker31
-    ip: 172.16.21.10
+  server4:
+    hostname: worker1lnode1
+    ip: 172.16.20.12
+    gw: 172.16.20.1
+  server5:
+    hostname: worker1lnode2
+    ip: 172.16.21.13
     gw: 172.16.21.1
+  server6:
+    hostname: worker2lmaster1
+    ip: 172.16.30.11
+    gw: 172.16.30.1
+  server7:
+    hostname: worker2lnode1
+    ip: 172.16.31.12
+    gw: 172.16.31.1
+  server8:
+    hostname: worker2lnode2
+    ip: 172.16.31.13
+    gw: 172.16.31.1
